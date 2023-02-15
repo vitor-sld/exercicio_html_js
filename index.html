@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML com JS</title>
+    <link rel="stylesheet" href="./main.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>EBAC Banking</h1>
+        <h2>Depósitos</h2>
+        <form id="formularioComparacao">
+            <input type="number" id="valorA" required placeholder="Insira o valor A" />
+            <p id="errorMessage" class="hidden"></p>
+            <input type="number" id="valorB" required placeholder="Insira o valor B" />
+
+            <button id="btnComparar" type="submit">Comparar</button>
+        </form>
+        <p id="successMessage" class="hidden"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('formularioComparacao')
+
+
+        function validador(a, b) {
+            let resultadoValidado = b - a > 0 ? true : false
+            return resultadoValidado;
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let valorA = document.getElementById('valorA');
+            let valorB = document.getElementById('valorB');
+            let pError = document.getElementById('errorMessage');
+            let pSuccess = document.getElementById('successMessage');
+            let messageErro = `Este elemento não pode ser maior ou igual ao valor B, por favor, insira um valor válido`;
+            let messageSucesso = `O valor B é maior que o valor A`;
+
+
+
+            let resultado = validador(valorA.value, valorB.value);
+
+            if (resultado) {
+                pSuccess.innerHTML = messageSucesso;
+
+                if (pSuccess.classList.contains('hidden')) {
+                    pSuccess.classList.remove('hidden')
+                }
+
+                if (!pError.classList.contains('hidden')) {
+                    pError.classList.add('hidden')
+                }
+
+
+            } else {
+                pError.innerHTML = messageErro;
+
+                if (!pSuccess.classList.contains('hidden')) {
+                    pSuccess.classList.add('hidden')
+                }
+
+                if (pError.classList.contains('hidden')) {
+                    pError.classList.remove('hidden')
+                }
+            }
+
+        })
+
+
+
+
+        /*
+                function validadorNome(nomeB) {
+                    let nomeEmArray = nomeB.split(' ')
+                    return nomeEmArray.length >= 2
+                }
+        
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+        
+                    const nomeB = document.getElementById('valorA');
+                    const conta = document.getElementById('valorB');
+                    const valor = document.getElementById('valorDeposito');
+                    let mensagemSucesso = `Foi efetuado o valor de <b> ${valor.value}</b> para a conta <b> ${conta.value}</b> que está no nome de <b> ${nomeB.value}</b>`;
+                    let mensagemErro = `Nome Incorreto, por favor, escreva seu nome completo`
+        
+                    nomeValidado = validadorNome(nomeB.value);
+        
+                    if (nomeValidado) {
+        
+                        document.querySelector('#successMessage').innerHTML = mensagemSucesso;
+                        document.querySelector('#successMessage').classList.remove('hidden')
+                        nomeB.value = '';
+                        conta.value = '';
+                        valor.value = '';
+                        
+                    } else { 
+                        document.querySelector('#errorMessage').innerHTML = mensagemErro;
+                        document.querySelector('#errorMessage').classList.remove('hidden')
+                    }
+                })
+        */
+
+
+    </script>
+</body>
+
+</html>
